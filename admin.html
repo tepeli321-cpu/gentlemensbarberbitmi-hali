@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Admin — Gentlemen's Barber Kuaför</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a class="nav-brand" href="index.html">
+      <span class="logo-mark js-logo-icon"></span>
+      <span>Gentlemen's Barber</span>
+    </a>
+    <div class="nav-right">
+      <a class="btn btn-outline btn-sm" href="index.html">← Siteye Dön</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Temayı değiştir"></button>
+    </div>
+  </nav>
+
+  <div class="admin-wrap">
+
+    <!-- Giriş ekranı -->
+    <div id="login-view">
+      <div class="card">
+        <div class="admin-header"><h2>Admin Girişi</h2></div>
+        <p class="admin-help">Admin hesabı Supabase panelinden oluşturulmalıdır. Genel kullanıcı kaydını açmayın.</p>
+        <form id="admin-login-form">
+          <div class="field">
+            <label for="admin-email">E-posta</label>
+            <input type="email" id="admin-email" required placeholder="Admin e-posta adresi" autocomplete="username">
+          </div>
+          <div class="field">
+            <label for="admin-pass">Şifre</label>
+            <input type="password" id="admin-pass" required placeholder="Şifrenizi girin" autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn btn-primary">Giriş Yap</button>
+          <div id="admin-login-msg"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Yönetim paneli -->
+    <div id="panel-view" style="display:none;">
+      <div class="admin-header">
+        <h2>Yönetim Paneli</h2>
+        <div>
+          <button type="button" class="link-btn" id="refresh-btn">Randevuları Yenile</button>
+          &nbsp;·&nbsp;
+          <button type="button" class="link-btn" id="logout-btn">Çıkış</button>
+        </div>
+      </div>
+
+      <div class="admin-tabs" role="tablist" aria-label="Yönetim bölümleri">
+        <button class="admin-tab active" type="button" data-admin-tab="content">Site İçeriği</button>
+        <button class="admin-tab" type="button" data-admin-tab="appointments">Randevular</button>
+      </div>
+
+      <section class="admin-section" id="content-panel">
+        <p class="admin-help">Burada kaydettiğiniz değişiklikler Supabase üzerinden siteyi ziyaret eden herkese yansır.</p>
+        <form id="site-content-form">
+          <div class="admin-content-card">
+            <h3>İşletme ve iletişim</h3>
+            <div class="admin-form-grid">
+              <div class="field"><label for="content-shop-name">İşletme adı</label><input id="content-shop-name" required></div>
+              <div class="field"><label for="content-shop-short">Kısa ad</label><input id="content-shop-short" required></div>
+              <div class="field"><label for="content-location">Konum adı</label><input id="content-location" required></div>
+              <div class="field"><label for="content-phone">Telefon</label><input id="content-phone" required></div>
+              <div class="field full"><label for="content-address">Adres</label><input id="content-address" required></div>
+              <div class="field"><label for="content-whatsapp">WhatsApp numarası (ülke koduyla)</label><input id="content-whatsapp" required></div>
+              <div class="field"><label for="content-instagram">Instagram bağlantısı</label><input id="content-instagram" type="url"></div>
+              <div class="field full"><label for="content-maps">Harita bağlantısı</label><input id="content-maps" type="url"></div>
+            </div>
+          </div>
+
+          <div class="admin-content-card">
+            <h3>Ana sayfa ve hakkımızda</h3>
+            <div class="admin-form-grid">
+              <div class="field full"><label for="content-hero-eyebrow">Ana sayfa üst başlığı</label><input id="content-hero-eyebrow" required></div>
+              <div class="field"><label for="content-hero-highlight">Vurgulu kelime</label><input id="content-hero-highlight" required></div>
+              <div class="field"><label for="content-about-quote">Hakkımızda alıntısı</label><input id="content-about-quote" required></div>
+              <div class="field full"><label for="content-hero-lead">Ana sayfa açıklaması</label><textarea id="content-hero-lead" rows="3" required></textarea></div>
+              <div class="field full"><label for="content-about-p1">Hakkımızda metni 1</label><textarea id="content-about-p1" rows="3" required></textarea></div>
+              <div class="field full"><label for="content-about-p2">Hakkımızda metni 2</label><textarea id="content-about-p2" rows="3" required></textarea></div>
+            </div>
+            <div class="admin-image-grid">
+              <div class="admin-image-field">
+                <label for="content-hero-image">Ana sayfa fotoğrafı</label>
+                <img id="hero-image-preview" class="admin-image-preview" alt="Ana sayfa fotoğrafı önizlemesi">
+                <input id="content-hero-image" type="file" accept="image/*">
+                <small>Görsel en fazla 5 MB olabilir.</small>
+              </div>
+              <div class="admin-image-field">
+                <label for="content-about-image">Hakkımızda fotoğrafı</label>
+                <img id="about-image-preview" class="admin-image-preview" alt="Hakkımızda fotoğrafı önizlemesi">
+                <input id="content-about-image" type="file" accept="image/*">
+                <small>Görsel en fazla 5 MB olabilir.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-content-card">
+            <div class="admin-card-heading">
+              <div><h3>Hizmet kartları ve fiyat listesi</h3><p>Bu liste ana sayfadaki hizmet kartlarını ve fiyat listesini yönetir.</p></div>
+              <button class="btn btn-outline btn-sm" type="button" id="add-service-btn">Hizmet Ekle</button>
+            </div>
+            <div id="editable-services"></div>
+          </div>
+          <div class="admin-content-card">
+            <h3>Randevu hizmetleri ve fiyatları</h3>
+            <p class="admin-help">Buradaki seçenekler randevu formunda berber seçimine göre gösterilir.</p>
+            <div id="editable-booking-services"></div>
+          </div>
+          <button class="btn btn-primary admin-save-btn" type="submit" id="save-content-btn">Değişiklikleri Kaydet</button>
+          <div id="content-save-msg" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <section class="admin-section" id="appointments-panel" hidden>
+        <div class="admin-summary" id="admin-summary"></div>
+        <div class="admin-toolbar">
+          <div class="admin-filter-group">
+            <label for="admin-barber-filter">Berber</label>
+            <select id="admin-barber-filter"></select>
+          </div>
+          <div class="admin-filter-group">
+            <label for="admin-date-filter">Tarih</label>
+            <input type="date" id="admin-date-filter">
+          </div>
+        </div>
+        <div id="admin-list"></div>
+      </section>
+    </div>
+
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.js-logo-icon').forEach(function(el){ el.innerHTML = logoMarkSVG(); });
+    });
+  </script>
+</body>
+</html>
